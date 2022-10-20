@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
+import { UserContext, userContext } from "../../contexts/user.context";
 import FormInput from "../form-input/form-input.component";
 import "./sign-in.styles.scss";
 import Button from "../button/button.component";
@@ -16,6 +17,8 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+  const {setCurrentUser}=useContext(UserContext);
+  
 
   const resetForm = () => {
     setFormFields(defaultFormFields);
@@ -29,11 +32,14 @@ const SignInForm = () => {
   const hundleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const {user} = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
+      setCurrentUser(user);
+      
+    
+    
       resetForm();
     } catch (error) {
       switch (error.code) {
@@ -43,8 +49,12 @@ const SignInForm = () => {
         case "auth/user-not-found":
           alert("This Account Does not Exist !");
           break;
+          case "auth/network-request-failed":
+          alert("Check Your Internet Or Use VPN (FireBase Ristrected in Syria )!");
+          break;
         default:
           console.log(error);
+
       }
     }
   };
