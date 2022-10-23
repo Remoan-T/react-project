@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FormInput from "../form-input/form-input.component";
+
 import "./sign-up.styles.scss";
 import Button from "../button/button.component";
 import {
@@ -38,18 +39,28 @@ const SignUpForm = () => {
 
   const createUser = async () => {
     try {
-      const response = await createAuthUserWithEmailAndPassword(
+      const {user} = await createAuthUserWithEmailAndPassword(
         email,
         password
       );
-      await createUserDocumentFromAuth(response.user, { displayName });
+
+
+      
+    
+      await createUserDocumentFromAuth(user, { displayName });
+     
+      
       resetForm();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("Email Already Registed !");
-      } else {
+      }
+      else if (error.code === "auth/weak-password")
+        alert("Weak Password !");
+      else {
         console.log("Error In User Creation !!", error);
       }
+    
     }
   };
 
