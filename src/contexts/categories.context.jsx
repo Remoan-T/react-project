@@ -13,7 +13,6 @@ useEffect(() => {
     const getCategories = async () => {
        const categoryMap = await getCategoriesAndDocuments();
        setcategories(categoryMap);
-       console.log(categories);
     }
     getCategories();
 },[])
