@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from "react-dom/client";
-import { Provider } from 'react-redux';
-import { store } from './store/store';
 import { BrowserRouter } from 'react-router-dom';
-import { CategoriesProvider } from './contexts/categories.context';
-import { CartProvider } from './contexts/cart.context';
+import { UserProvider } from './contexts/user.context';
+import { CardsProvider } from './contexts/card.context';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -13,17 +11,17 @@ import * as serviceWorker from './serviceWorker';
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
      <BrowserRouter>
- 
-         <CategoriesProvider>
-           <CartProvider>
+      <CardsProvider>
+       <UserProvider>
+
+       
               <App />
-            </CartProvider>
-         </CategoriesProvider>   
-     
+           
+  
+     </UserProvider>
+     </CardsProvider>
     </BrowserRouter>
-   </Provider>
   </React.StrictMode>);
 
 // If you want your app to work offline and load faster, you can change

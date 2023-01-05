@@ -5,7 +5,7 @@ const INITIAL_VALUES = {
   };
 
 
-  export const userReducer = (state = INITIAL_VALUES, action) => {
+  export const userReducer = (state = INITIAL_VALUES, action={}) => {
     const { type, payload } = action;
   
     switch (type) {
